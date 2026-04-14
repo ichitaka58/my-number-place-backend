@@ -17,7 +17,7 @@ datasource db {
 // ========================================
 model ClearTime {
   id        Int      @id @default(autoincrement())
-  userId    String?
+  userName  String
   time      Int
   level     String
   createdAt DateTime @default(now())

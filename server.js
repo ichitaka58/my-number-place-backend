@@ -73,7 +73,7 @@ app.get("/api/clear-times", async (req, res) => {
  */
 app.post("/api/clear-times", async (req, res) => {
   try {
-    const { userId, time, level } = req.body;
+    const { userName, time, level } = req.body;
 
     // バリデーション: timeとlevelの必須チェック
     if (!time || !level || level.trim() === "") {
@@ -83,7 +83,7 @@ app.post("/api/clear-times", async (req, res) => {
     // データベースに新しいレコードを保存
     const clearTime = await prisma.clearTime.create({
       data: {
-        userId: userId || null, // userIdがない場合はnullを保存（未ログイン等の場合）
+        userName: userName || "ゲストユーザー", // userNameがない場合はゲストユーザーを保存
         time: time,
         level: level,
       },
