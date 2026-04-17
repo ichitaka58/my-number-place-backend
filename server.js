@@ -24,8 +24,15 @@ const app = express();
 /**
  * ミドルウェアの設定
  */
+const corsOptions = {
+  origin: [
+    "http://localhost:5173",
+    "https://my-number-place.vercel.app",
+  ],
+  credentials: true,
+};
 // 異なるオリジンからのAPIリクエスト（CORS）を許可する
-app.use(cors());
+app.use(cors(corsOptions));
 // リクエストボディのJSONデータをパースして `req.body` として扱えるようにする
 app.use(express.json());
 
@@ -121,7 +128,7 @@ app.delete("/api/clear-times/:id", async (req, res) => {
 
   } catch (error) {
     console.error("Error deleting record:", error);
-    
+
     // P2025 = Prisma のエラーコード（該当IDのレコードが見つからない場合）
     if (error.code === "P2025") {
       return res.status(404).json({ error: "レコードが見つかりません" });
