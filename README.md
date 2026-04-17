@@ -16,6 +16,19 @@
 * 保存されたクリアタイムデータのランキング一覧取得
 * 特定のクリアタイムレコードの削除
 
+## デプロイメント
+
+本アーキテクチャでは、フロントエンドとバックエンドをそれぞれ別のプラットフォームにデプロイしています。
+
+* **フロントエンド (Vercel)**: ナンプレアプリのUIを提供します。
+* **バックエンド (Render)**: このリポジトリで管理されているAPIサーバーです。データベース(Supabase等)と連携してスコアを管理します。
+
+**本番環境(Render)での環境変数:**
+Renderダッシュボードの環境変数設定にて、以下の項目を設定してください。
+* `DATABASE_URL`: 接続先のPostgreSQLデータベースURL
+
+*(※フロントエンド側(Vercel)の環境変数には、Renderで発行されたバックエンドのURL(`https://your-app.onrender.com` 等)を指定して連携させます)*
+
 ## 開発環境のセットアップ手順
 
 ### 1. リポジトリのクローンと依存関係のインストール
@@ -31,7 +44,7 @@ npm install
 プロジェクトのルートディレクトリに `.env` ファイルを作成し、環境変数を設定します。
 
 ```env
-DATABASE_URL="postgresql://[user]:[password]@[host]:[port]/[database]?schema=public"
+DATABASE_URL="postgresql://[user]:[password]@[host]:[port]/[database]"
 PORT=8888
 ```
 
